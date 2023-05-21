@@ -1,95 +1,66 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import React from "react";
+// Activity Calendar Import 
+import ActivityCalendar, { ThemeInput } from "react-activity-calendar";
+//React Tooltip
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+import 'bootstrap/dist/css/bootstrap.css'; // Add this line
+
+// Data 
+import { data } from "./data";
+
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+	// Calendar Theme
+	const explicitTheme: ThemeInput = {
+		light: ["#f0f0f0", "#c4edde", "#7ac7c4", "#f73859", "#384259"],
+		dark: ["#383838", "#4D455D", "#7DB9B6", "#F5E9CF", "#E96479"],
+	};
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+	return (
+		<main>
+			<div className="container" style={{ padding: "50px" }}>
+				<h1>test</h1>
+				<ActivityCalendar
+					data={data}
+					renderBlock={(block, activity) =>
+						React.cloneElement(block, {
+							'data-tooltip-id': 'react-tooltip',
+							'data-tooltip-html': `${activity.count} activities on ${activity.date}`,
+						})}
+					showWeekdayLabels
+					labels={{
+						legend: {
+							less: "💩",
+							more: "🥇",
+						},
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+						months: [
+							"Jan",
+							"Feb",
+							"Mar",
+							"Apr",
+							"May",
+							"Jun",
+							"Jul",
+							"Aug",
+							"Sep",
+							"Oct",
+							"Nov",
+							"Dec",
+						],
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+						totalCount: "{{count}} contributions in {{year}}",
+						weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+					}}
+					theme={explicitTheme}
+				/>
+				<ReactTooltip id="react-tooltip" />
+				<div className="btn btn-classic">
+				</div>
+			</div>
+		</main>
+	);
 }
