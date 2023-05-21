@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'; // Add this line
 // Data 
 import { data } from "./data";
 
+import CalendarConnection from "./calendarconnection";
 
 export default function Home() {
 
@@ -59,6 +60,9 @@ export default function Home() {
 				/>
 				<ReactTooltip id="react-tooltip" />
 				<div className="btn btn-classic">
+				</div>
+				<div>
+					<CalendarConnection />
 				</div>
 			</div>
 		</main>
